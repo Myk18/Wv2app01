@@ -257,9 +257,7 @@ public class GraphActivity extends Activity {
 
         }
         private Canvas drawmyAcircles(Canvas ca) {
-
                 ca.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
-
                 ca.drawCircle(ballWidth, ballHeight, 20, idToPaint(5));
             return ca;
         }
