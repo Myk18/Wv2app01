@@ -3,6 +3,7 @@ package ua.cn.sandi.wv2app01;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.*;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -22,6 +23,9 @@ public class GraphActivity extends Activity {
 
     Button bbip;
 
+    Button bleft;
+    Button bright;
+
     Handler h;
 
     ProgressBar pbCount;
@@ -40,6 +44,9 @@ public class GraphActivity extends Activity {
         bcl=(Button)findViewById(R.id.button_changelayout);
         bbip=(Button)findViewById(R.id.button_bip);
 
+        bleft=(Button)findViewById(R.id.button_left);
+        bright=(Button)findViewById(R.id.button_right);
+
         bcl.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -48,7 +55,16 @@ public class GraphActivity extends Activity {
             }
         });
 
-        bbip.setOnClickListener(new View.OnClickListener() {
+        bleft.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //final AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
+                //v.setSoundEffectsEnabled(true);
+                //audioManager.playSoundEffect(SoundEffectConstants.CLICK);
+            }
+        });
+
+        bright.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //final AudioManager audioManager = (AudioManager) this.getSystemService(Context.AUDIO_SERVICE);
@@ -61,13 +77,18 @@ public class GraphActivity extends Activity {
         pbCount.setMax(max);
         pbCount.setProgress(0);
 
+
+        // main class
+        final StatBitmap mysb = new StatBitmap();
+
+
         final Runnable updateProgress = new Runnable() {
             public void run() {
                 pbCount.setProgress(cnt);
             }
         };
 
-        Thread t = new Thread(new Runnable() {
+        Thread t_progress = new Thread(new Runnable() {
             public void run() {
                 try {
                     for (cnt = 1; cnt < max; cnt++) {
@@ -83,13 +104,21 @@ public class GraphActivity extends Activity {
                 }
             }
         });
-        t.start();     // t started
+        t_progress.start();     // progress started
 
-        final StatBitmap mysb = new StatBitmap();
 
-        final Runnable runCode = new Runnable() {
+
+        bbip.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mysb.playsound(GraphActivity.this, R.raw.nominal);
+            }
+        });
+
+
+        final Runnable updateLayer = new Runnable() {
             public void run() {
-                        mysb.drawActionLayer((ImageView) findViewById(R.id.myActionView), mysb.getCa());
+                mysb.drawActionLayer((ImageView) findViewById(R.id.myActionView), mysb.getCa());
             }
         };
 
@@ -99,22 +128,20 @@ public class GraphActivity extends Activity {
                     try {
 
                         int wi;
-                        int hi;
+                    //    int hi;
 
                             for (wi = 1; wi < 640; wi++) {
 
                                 TimeUnit.MILLISECONDS.sleep(35);
 
-                                hi = wi * 480 / 640;
+                    //            hi = wi * 480 / 640;
 
                                 if (wi == 635) wi = 1;
-
+/*
                                 mysb.setBallWidth(wi);
                                 mysb.setBallHeight(hi);
-
-                                //h.post(runCode);
-                                runOnUiThread(runCode);
-
+*/
+                                runOnUiThread(updateLayer);
 
                             }
 
@@ -125,7 +152,6 @@ public class GraphActivity extends Activity {
             }
         });
         t2.start();   // started
-
 
         runOnUiThread(new Runnable() {
             @Override
@@ -140,11 +166,46 @@ public class GraphActivity extends Activity {
 
     }    //onCreate end
 
-    private class StatBitmap{
+    private class StatBitmap1{
+
+        StatBitmap1(){
+
+            Thread t2 = new Thread(new Runnable() {
+                public void run() {
+
+                    try {
+
+                        int wi;
+                        int hi;
+
+                        for (wi = 1; wi < 640; wi++) {
+
+                            TimeUnit.MILLISECONDS.sleep(1000/ballSpeed);
+
+                            hi = wi * 480 / 640;
+
+                            if (wi == 635) wi = 1;
+
+                            ballWidth = wi;
+                            ballHeight = hi;
+
+                        }
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            });
+            t2.start();   // started
+
+        }
 
         int ballWidth;
 
         int ballHeight;
+
+        int ballSpeed=40; // 1-40 TimeUnit.MILLISECONDS.sleep(1000/ballSpeed)
 
         private void setBallWidth(int ballWidth) {
             this.ballWidth = ballWidth;
@@ -195,6 +256,28 @@ public class GraphActivity extends Activity {
                 {500,88,15,3},
                 {639,240,20,3},
         };
+
+
+        final MediaPlayer mp = MediaPlayer.create(GraphActivity.this, R.raw.nominal);
+
+        final Runnable sound01 = new Runnable() {
+            public void run() {
+                mp.start();
+            }
+        };
+
+        private void playsound() {
+
+            Thread playsound = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    h.post(sound01);
+                }
+            });
+            playsound.start();
+
+        }
+
 
         private Paint idToPaint(int i){
 
@@ -254,7 +337,6 @@ public class GraphActivity extends Activity {
                 c.drawCircle(circle[0], circle[1], circle[2], idToPaint(circle[3]));
 
             }
-
         }
         private Canvas drawmyAcircles(Canvas ca) {
                 ca.drawColor(Color.TRANSPARENT, PorterDuff.Mode.CLEAR);
@@ -262,23 +344,24 @@ public class GraphActivity extends Activity {
             return ca;
         }
 
-        private void drawStaticLayer(ImageView v1){
+        private void drawStaticLayer(ImageView iv){
 
             drawmyrects();
             drawmylines();
             drawmycircles();
 
-            v1.setImageBitmap(b);
+            iv.setImageBitmap(b);
         }
-        private void drawActionLayer(ImageView v1, Canvas ca){
+        private void drawActionLayer(ImageView iv, Canvas ca){
 
             drawmyAcircles(ca);
 
-            v1.setImageBitmap(ba);
+            iv.setImageBitmap(ba);
 
         }
 
     }   // StatBitmap class end
+
 
 }   // activity end
 
