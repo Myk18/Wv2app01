@@ -24,29 +24,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Change Layout"
+        tools:ignore="UnknownIdInLayout"
+        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        tools:ignore="UnknownIdInLayout" />
+        android:layout_alignParentEnd="true" />
 
     <ImageView
         android:id="@+id/myImageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button_left"
+        android:layout_toStartOf="@+id/button_left"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <ImageView
         android:id="@+id/myActionView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/button_left"
+        android:layout_toStartOf="@+id/button_left"
         app:srcCompat="@mipmap/ic_launcher" />
 
     <Button
         android:id="@+id/button_bip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:text="Bip"
+        android:layout_above="@+id/button_right"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/button_changelayout"
-        android:text="Bip" />
+        android:layout_alignParentEnd="true" />
 
     <Button
         android:id="@+id/button_left"
@@ -63,7 +75,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="right"
-        android:layout_below="@+id/button_bip"
+        android:layout_above="@+id/pbCount"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
