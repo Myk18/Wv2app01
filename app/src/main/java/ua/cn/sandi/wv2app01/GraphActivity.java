@@ -1,10 +1,8 @@
 package ua.cn.sandi.wv2app01;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -19,10 +17,16 @@ import java.util.concurrent.TimeUnit;
 public class GraphActivity extends Activity {
 
     Button bcl;
-
     Button bbip;
+
     Button bleft;
     Button bright;
+
+    Button acc;
+    Button dec;
+    Button brk;
+
+    Button act1;
 
     ProgressBar pbCount;
 
@@ -42,8 +46,14 @@ public class GraphActivity extends Activity {
         final Arkobox mysb = new Arkobox(this);
 
 
+        //buttons
+        acc=(Button)findViewById(R.id.button_spdup);
+        dec=(Button)findViewById(R.id.button_spddown);
+        brk=(Button)findViewById(R.id.button_brk);
+
         bcl=(Button)findViewById(R.id.button_changelayout);
         bbip=(Button)findViewById(R.id.button_bip);
+        act1=(Button)findViewById(R.id.button_action01);
 
         bleft=(Button)findViewById(R.id.button_left);
         bright=(Button)findViewById(R.id.button_right);
@@ -79,6 +89,34 @@ public class GraphActivity extends Activity {
                 mysb.playsound(GraphActivity.this, R.raw.nominal);
             }
         });
+
+        acc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code here
+                mysb.speedUp();
+            }
+        });
+
+        dec.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code here
+                mysb.speedDown();
+            }
+        });
+
+        brk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // code here
+                mysb.breaking();
+            }
+        });
+
+
+
+
 
         // progress bar init
 

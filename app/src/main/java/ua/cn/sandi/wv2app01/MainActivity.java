@@ -21,6 +21,8 @@ public class MainActivity extends Activity {
     Button bd;
     Button bu;
     Button bcl;
+
+
     EditText ed1;
 
     private WebView wv1;
@@ -34,6 +36,7 @@ public class MainActivity extends Activity {
         bu=(Button)findViewById(R.id.button_u);
         bd=(Button)findViewById(R.id.button_d);
         bcl=(Button)findViewById(R.id.button_changelayout);
+
 
         ed1=(EditText)findViewById(R.id.editText);
         ed1.setText("http://testung.sandi.cn.ua/arkabox/arkabox.html");

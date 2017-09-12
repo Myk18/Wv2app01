@@ -23,11 +23,14 @@
         android:id="@+id/button_changelayout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Change Layout"
-        tools:ignore="UnknownIdInLayout"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
         android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentTop="true"
+        android:text="Change Layout"
+        android:textAlignment="center"
+        tools:ignore="UnknownIdInLayout"
+        android:layout_alignLeft="@+id/button_bip"
+        android:layout_alignStart="@+id/button_bip" />
 
     <ImageView
         android:id="@+id/myImageView"
@@ -38,7 +41,8 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/button_left"
         android:layout_toStartOf="@+id/button_left"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_above="@+id/pbCount" />
 
     <ImageView
         android:id="@+id/myActionView"
@@ -49,16 +53,41 @@
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/button_left"
         android:layout_toStartOf="@+id/button_left"
-        app:srcCompat="@mipmap/ic_launcher" />
+        app:srcCompat="@mipmap/ic_launcher"
+        android:layout_above="@+id/pbCount" />
 
     <Button
         android:id="@+id/button_bip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Bip"
-        android:layout_above="@+id/button_right"
+        android:layout_above="@+id/button_left"
+        android:layout_toRightOf="@+id/myImageView"
+        android:layout_toEndOf="@+id/myImageView" />
+
+    <Button
+        android:id="@+id/button_brk"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Break"
+        android:textAlignment="center"
+        tools:ignore="UnknownIdInLayout"
+        android:layout_above="@+id/button_spdup"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+
+    <Button
+        android:id="@+id/button_spdup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_bip"
+        android:layout_alignBottom="@+id/button_bip"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Accel"
+        android:textAlignment="center"
+        tools:ignore="UnknownIdInLayout" />
 
     <Button
         android:id="@+id/button_left"
@@ -67,17 +96,38 @@
         android:text="left"
         android:layout_alignBaseline="@+id/button_right"
         android:layout_alignBottom="@+id/button_right"
-        android:layout_toLeftOf="@+id/button_bip"
-        android:layout_toStartOf="@+id/button_bip" />
+        android:layout_toLeftOf="@+id/button_right"
+        android:layout_toStartOf="@+id/button_right" />
 
     <Button
         android:id="@+id/button_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="right"
-        android:layout_above="@+id/pbCount"
+        android:layout_above="@+id/button_action01"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:id="@+id/button_spddown"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_action01"
+        android:layout_alignBottom="@+id/button_action01"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:text="Deccel"
+        android:textAlignment="center"
+        tools:ignore="UnknownIdInLayout" />
+
+    <Button
+        android:id="@+id/button_action01"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="action"
+        android:layout_above="@+id/pbCount"
+        android:layout_toRightOf="@+id/myImageView"
+        android:layout_toEndOf="@+id/myImageView" />
 
 
 </RelativeLayout>
