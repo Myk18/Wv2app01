@@ -46,7 +46,7 @@ public class GraphActivity extends Activity {
         final Arkobox mysb = new Arkobox(this);
 
 
-        //buttons
+        //controls
         acc=(Button)findViewById(R.id.button_spdup);
         dec=(Button)findViewById(R.id.button_spddown);
         brk=(Button)findViewById(R.id.button_brk);
@@ -115,9 +115,6 @@ public class GraphActivity extends Activity {
         });
 
 
-
-
-
         // progress bar init
 
         pbCount = (ProgressBar) findViewById(R.id.pbCount);
@@ -170,25 +167,19 @@ public class GraphActivity extends Activity {
             }
         };
 
-        Thread t2 = new Thread(new Runnable() {
+        Thread actupdate = new Thread(new Runnable() {
             public void run() {
-
                 try {
                     while(timecount){
-
                         TimeUnit.MILLISECONDS.sleep(50);
-
                         runOnUiThread(updateLayer);
-
                     }
-
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
             }
         });
-        t2.start();   // started
+        actupdate.start();   // started
 
     }    //onCreate end
 
